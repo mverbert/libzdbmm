@@ -1,47 +1,76 @@
 #include "zdbmm.h"
+#include "SQLExceptionmm.h"
 
 ZDB::ResultSet::ResultSet(ResultSet_T resultSet) {
     internal = resultSet;
 }
 int ZDB::ResultSet::getColumnCount() {
-    return ResultSet_getColumnCount(internal);
+  TRY {
+    RETURN ResultSet_getColumnCount(internal);
+  } CATCH_RETHROW_SQL;
 }
 const char *ZDB::ResultSet::getColumnName(int columnIndex) {
-    return ResultSet_getColumnName(internal, columnIndex);
+  TRY {
+    RETURN ResultSet_getColumnName(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
 }
 long ZDB::ResultSet::getColumnSize(int columnIndex) {
-    return ResultSet_getColumnSize(internal, columnIndex);
+  TRY {
+    RETURN ResultSet_getColumnSize(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
 }
 int ZDB::ResultSet::next() {
-    return ResultSet_next(internal);
+  TRY {
+    RETURN ResultSet_next(internal);
+  } CATCH_RETHROW_SQL;
 }
 const char *ZDB::ResultSet::getString(int columnIndex) {
-    return ResultSet_getString(internal, columnIndex);
+  TRY {
+    RETURN ResultSet_getString(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
 }
 const char *ZDB::ResultSet::getStringByName(const char *columnName) {
-    return ResultSet_getStringByName(internal, columnName);
+  TRY {
+    RETURN ResultSet_getStringByName(internal, columnName);
+  } CATCH_RETHROW_SQL;
 }
 int ZDB::ResultSet::getInt(int columnIndex) {
-    return ResultSet_getInt(internal, columnIndex);
+  TRY {
+    RETURN ResultSet_getInt(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
 }
 int ZDB::ResultSet::getIntByName(const char *columnName) {
-    return ResultSet_getIntByName(internal, columnName);
+  TRY {
+    RETURN ResultSet_getIntByName(internal, columnName);
+  } CATCH_RETHROW_SQL;
 }
 long long int ZDB::ResultSet::getLLong(int columnIndex) {
-    return ResultSet_getLLong(internal, columnIndex);
+  TRY {
+    RETURN ResultSet_getLLong(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
 }
 long long int ZDB::ResultSet::getLLongByName(const char *columnName) {
-    return ResultSet_getLLongByName(internal, columnName);
+  TRY {
+    RETURN ResultSet_getLLongByName(internal, columnName);
+  } CATCH_RETHROW_SQL;
 }
 double ZDB::ResultSet::getDouble(int columnIndex) {
-    return ResultSet_getDouble(internal, columnIndex);
+  TRY {
+    RETURN ResultSet_getDouble(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
 }
 double ZDB::ResultSet::getDoubleByName(const char *columnName) {
-    return ResultSet_getDoubleByName(internal, columnName);
+  TRY {
+    RETURN ResultSet_getDoubleByName(internal, columnName);
+  } CATCH_RETHROW_SQL;
 }
 const void *ZDB::ResultSet::getBlob(int columnIndex, int *size) {
-    return ResultSet_getBlob(internal, columnIndex, size);
+  TRY {
+    RETURN ResultSet_getBlob(internal, columnIndex, size);
+  } CATCH_RETHROW_SQL;
 }
 const void *ZDB::ResultSet::getBlobByName(const char *columnName, int *size) {
-    return ResultSet_getBlobByName(internal, columnName, size);
+  TRY {
+    RETURN ResultSet_getBlobByName(internal, columnName, size);
+  } CATCH_RETHROW_SQL;
 }

@@ -1,72 +1,104 @@
 #include <stdarg.h>
 #include "zdbmm.h"
+#include "SQLExceptionmm.h"
 
 ZDB::Connection::Connection(Connection_T connection) {
   internal = connection;
-};
+}
 
 void ZDB::Connection::setQueryTimeout(int ms) {
-  Connection_setQueryTimeout(internal, ms);
+  TRY {
+    Connection_setQueryTimeout(internal, ms);
+  } CATCH_RETHROW_SQL;
 }
 
 int ZDB::Connection::getQueryTimeout() {
-  return Connection_getQueryTimeout(internal);
+  TRY {
+    RETURN Connection_getQueryTimeout(internal);
+  } CATCH_RETHROW_SQL;
 }
+
 void ZDB::Connection::setMaxRows(int max) {
-  Connection_setMaxRows(internal, max);  
+  TRY {
+    Connection_setMaxRows(internal, max);  
+  } CATCH_RETHROW_SQL;
 }
 int ZDB::Connection::getMaxRows() {
-  return Connection_getMaxRows(internal);
+  TRY {
+    RETURN Connection_getMaxRows(internal);
+  } CATCH_RETHROW_SQL;
 }
 int ZDB::Connection::ping() {
-  Connection_ping(internal);
+  TRY {
+    Connection_ping(internal);
+  } CATCH_RETHROW_SQL;
 }
 void ZDB::Connection::clear() {
-  Connection_clear(internal);
+  TRY {
+    Connection_clear(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::Connection::close() {
-  Connection_close(internal);
+  TRY {
+    Connection_close(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::Connection::beginTransaction() {
-  Connection_beginTransaction(internal);
+  TRY {
+    Connection_beginTransaction(internal);
+  } CATCH_RETHROW_SQL;
 }
 void ZDB::Connection::commit() {
-  Connection_commit(internal);
+  TRY {
+    Connection_commit(internal);
+  } CATCH_RETHROW_SQL;
 }
 void ZDB::Connection::rollback() {
-  Connection_rollback(internal);
+  TRY {
+    Connection_rollback(internal);
+  } CATCH_RETHROW_SQL;
 }
 long long int ZDB::Connection::lastRowId() {
-  return Connection_lastRowId(internal);
+  TRY {
+    RETURN Connection_lastRowId(internal);
+  } CATCH_RETHROW_SQL;
 }
 long long int ZDB::Connection::rowsChanged() {
-  return Connection_rowsChanged(internal);
+  TRY {
+    RETURN Connection_rowsChanged(internal);
+  } CATCH_RETHROW_SQL;
 }
 void ZDB::Connection::execute(const char *sql, ...) {
-  va_list ap;
-  va_start(ap, sql);
-  Connection_execute(internal, sql, ap);
-  va_end(ap);
+  TRY {
+    va_list ap;
+    va_start(ap, sql);
+    Connection_execute(internal, sql, ap);
+    va_end(ap);
+  } CATCH_RETHROW_SQL;
 }
 
 ZDB::ResultSet* ZDB::Connection::executeQuery(const char *sql, ...) {
-  va_list ap;
-  ResultSet_T rs;
-  va_start(ap, sql);
-  rs = Connection_executeQuery(internal, sql, ap);
-  va_end(ap);
-  return new ZDB::ResultSet(rs);
+  TRY {
+    va_list ap;
+    ResultSet_T rs;
+    va_start(ap, sql);
+    rs = Connection_executeQuery(internal, sql, ap);
+    va_end(ap);
+    RETURN new ZDB::ResultSet(rs);
+  } CATCH_RETHROW_SQL;
 }
 
 ZDB::PreparedStatement* ZDB::Connection::prepareStatement(const char *sql, ...) {
-  va_list ap;
-  PreparedStatement_T ps;
-  va_start(ap, sql);
-  ps = Connection_prepareStatement(internal, sql, ap);
-  va_end(ap);
-  return new ZDB::PreparedStatement(ps);
+  TRY {
+    va_list ap;
+    PreparedStatement_T ps;
+    va_start(ap, sql);
+    ps = Connection_prepareStatement(internal, sql, ap);
+    va_end(ap);
+    RETURN new ZDB::PreparedStatement(ps);
+  } CATCH_RETHROW_SQL;
 }
 
 void * ZDB::Connection::value() {

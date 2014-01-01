@@ -1,11 +1,16 @@
 #include "zdbmm.h"
+#include "SQLExceptionmm.h"
 
 ZDB::URL::URL(const char * url) {
-  internal = URL_new(url);
+  TRY {
+    internal = URL_new(url);
+  } CATCH_RETHROW_SQL;
 };
 
 ZDB::URL::~URL() {
-  URL_free(&internal);	
+  TRY {
+    URL_free(&internal);	
+  } CATCH_RETHROW_SQL;
 }
 
 void * ZDB::URL::value() {

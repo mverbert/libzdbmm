@@ -2,6 +2,13 @@
 
 namespace ZDB {
 
+  class SQLException
+  {
+    Exception_Frame* internal;
+  public:
+    SQLException(Exception_Frame* sqlException);
+  };
+
   class URL
   {
     URL_T internal;

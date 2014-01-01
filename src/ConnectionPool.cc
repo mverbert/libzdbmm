@@ -1,12 +1,17 @@
 #include "zdbmm.h"
+#include "SQLExceptionmm.h"
 
 ZDB::ConnectionPool::ConnectionPool(ZDB::URL* url) {
   this->url = url;
-  internal = ConnectionPool_new((URL_T) url->value());
+  TRY {
+    internal = ConnectionPool_new((URL_T) url->value());
+  } CATCH_RETHROW_SQL;
 };
 
 ZDB::ConnectionPool::~ConnectionPool() {
-  ConnectionPool_free(&internal);
+  TRY {
+    ConnectionPool_free(&internal);
+  } CATCH_RETHROW_SQL;
 }
 
 ZDB::URL* ZDB::ConnectionPool::getURL() {
@@ -14,63 +19,94 @@ ZDB::URL* ZDB::ConnectionPool::getURL() {
 }
 
 void ZDB::ConnectionPool::setInitialConnections(int connections) {
-  ConnectionPool_setInitialConnections(internal, connections);
+  TRY {
+    ConnectionPool_setInitialConnections(internal, connections);
+  } CATCH_RETHROW_SQL;
 }
 
 int ZDB::ConnectionPool::getInitialConnections() {
-  return ConnectionPool_getInitialConnections(internal);
+  TRY {
+    RETURN ConnectionPool_getInitialConnections(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::ConnectionPool::setMaxConnections(int maxConnections) {
-  ConnectionPool_setMaxConnections(internal, maxConnections);
+  TRY {
+    ConnectionPool_setMaxConnections(internal, maxConnections);
+  } CATCH_RETHROW_SQL;
 }
 
 int ZDB::ConnectionPool::getMaxConnections() {
-  return ConnectionPool_getMaxConnections(internal);
+  TRY {
+    RETURN ConnectionPool_getMaxConnections(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::ConnectionPool::setConnectionTimeout(int connectionTimeout) {
-  ConnectionPool_setConnectionTimeout(internal, connectionTimeout);
+  TRY {
+    ConnectionPool_setConnectionTimeout(internal, connectionTimeout);
+  } CATCH_RETHROW_SQL;
 }
 
 int ZDB::ConnectionPool::getConnectionTimeout() {
-  return ConnectionPool_getConnectionTimeout(internal);
+  TRY {
+    RETURN ConnectionPool_getConnectionTimeout(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::ConnectionPool::setAbortHandler(void(*abortHandler)(const char *error)) {
-  ConnectionPool_setAbortHandler(internal, abortHandler);
+  TRY {
+    ConnectionPool_setAbortHandler(internal, abortHandler);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::ConnectionPool::setReaper(int sweepInterval) {
-  ConnectionPool_setReaper(internal, sweepInterval);
+  TRY {
+    ConnectionPool_setReaper(internal, sweepInterval);
+  } CATCH_RETHROW_SQL;
 }
 
 int ZDB::ConnectionPool::size() {
-  return ConnectionPool_size(internal);
+  TRY {
+    RETURN ConnectionPool_size(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 int ZDB::ConnectionPool::active() {
-  return ConnectionPool_active(internal);
+  TRY {
+    RETURN ConnectionPool_active(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::ConnectionPool::start() {
-  ConnectionPool_start(internal);
+  TRY {
+    ConnectionPool_start(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 void ZDB::ConnectionPool::stop() {
-  ConnectionPool_stop(internal);
+  TRY {
+    ConnectionPool_stop(internal);
+  } CATCH_RETHROW_SQL;
 }
 
 ZDB::Connection* ZDB::ConnectionPool::getConnection() {
-  Connection_T connection = ConnectionPool_getConnection(internal);
+  Connection_T connection;
+  TRY {
+    connection = ConnectionPool_getConnection(internal);
+  } CATCH_RETHROW_SQL;
   return new ZDB::Connection(connection);
 }
 
 void ZDB::ConnectionPool::returnConnection(ZDB::Connection* connection) {
-  ConnectionPool_returnConnection(internal, (Connection_T) connection->value());
+  TRY {
+    ConnectionPool_returnConnection(internal, (Connection_T) connection->value());
+  } CATCH_RETHROW_SQL;
   delete connection;
 }
 
 int ZDB::ConnectionPool::reapConnections() {
-  return ConnectionPool_reapConnections(internal);
+  TRY {
+    RETURN ConnectionPool_reapConnections(internal);
+  } CATCH_RETHROW_SQL;
 }
