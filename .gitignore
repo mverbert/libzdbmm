@@ -16,3 +16,4 @@ missing
 *.o
 *.la
 *.lo
+zdbmm.pc
