@@ -15,7 +15,7 @@ void ZDB::PreparedStatement::setInt(int parameterIndex, int x) {
     PreparedStatement_setInt(internal, parameterIndex, x);
   } CATCH_RETHROW_SQL;
 }
-void ZDB::PreparedStatement::setLLong(int parameterIndex, long long int x) {
+void ZDB::PreparedStatement::setLLong(int parameterIndex, long long x) {
   TRY {
     PreparedStatement_setLLong(internal, parameterIndex, x);
   } CATCH_RETHROW_SQL;
@@ -30,6 +30,11 @@ void ZDB::PreparedStatement::setBlob(int parameterIndex, const void *x, int size
     PreparedStatement_setBlob(internal, parameterIndex, x, size);
   } CATCH_RETHROW_SQL;
 }
+void ZDB::PreparedStatement::setTimestamp(int parameterIndex, time_t x) {
+  TRY {
+    PreparedStatement_setTimestamp(internal, parameterIndex, x);
+  } CATCH_RETHROW_SQL;
+}
 void ZDB::PreparedStatement::execute() {
   TRY {
     PreparedStatement_execute(internal);
@@ -41,7 +46,7 @@ ZDB::ResultSet* ZDB::PreparedStatement::executeQuery() {
     RETURN new ZDB::ResultSet(rs);
   } CATCH_RETHROW_SQL;
 }
-long long int ZDB::PreparedStatement::rowsChanged() {
+long long ZDB::PreparedStatement::rowsChanged() {
   TRY {
     RETURN PreparedStatement_rowsChanged(internal);
   } CATCH_RETHROW_SQL;

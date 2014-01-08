@@ -1,7 +1,7 @@
-AC_INIT([zdbmm], [0.2.14], [matthieu.verbert@aitb.org])
+AC_INIT([zdbmm], [0.3.0], [matthieu.verbert@aitb.org])
 AM_INIT_AUTOMAKE
 AC_PROG_CXX
-PKG_CHECK_MODULES([zdb], [zdb >= 2.12])
+PKG_CHECK_MODULES([zdb], [zdb >= 3.0])
 LT_INIT
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_FILES([Makefile src/Makefile])

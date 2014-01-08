@@ -74,3 +74,23 @@ const void *ZDB::ResultSet::getBlobByName(const char *columnName, int *size) {
     RETURN ResultSet_getBlobByName(internal, columnName, size);
   } CATCH_RETHROW_SQL;
 }
+time_t ZDB::ResultSet::getTimestamp(int columnIndex) {
+  TRY {
+    RETURN ResultSet_getTimestamp(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
+}
+time_t ZDB::ResultSet::getTimestampByName(const char *columnName) {
+  TRY {
+    RETURN ResultSet_getTimestampByName(internal, columnName);
+  } CATCH_RETHROW_SQL;
+}
+struct tm ZDB::ResultSet::getDateTime(int columnIndex) {
+  TRY {
+    RETURN ResultSet_getDateTime(internal, columnIndex);
+  } CATCH_RETHROW_SQL;
+}
+struct tm ZDB::ResultSet::getDateTimeByName(const char *columnName) {
+  TRY {
+    RETURN ResultSet_getDateTimeByName(internal, columnName);
+  } CATCH_RETHROW_SQL;
+}

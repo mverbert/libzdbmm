@@ -62,8 +62,8 @@ namespace ZDB {
     void beginTransaction();
     void commit();
     void rollback();
-    long long int lastRowId();
-    long long int rowsChanged();
+    long long lastRowId();
+    long long rowsChanged();
     void execute(const char *sql, ...);
     ResultSet* executeQuery(const char *sql, ...);
     PreparedStatement* prepareStatement(const char *sql, ...);
@@ -88,6 +88,10 @@ namespace ZDB {
     double getDoubleByName(const char *columnName);
     const void *getBlob(int columnIndex, int *size);
     const void *getBlobByName(const char *columnName, int *size);
+    time_t getTimestamp(int columnIndex);
+    time_t getTimestampByName(const char *columnName);
+    struct tm getDateTime(int columnIndex);
+    struct tm getDateTimeByName(const char *columnName);
   };
 
   class PreparedStatement {
@@ -96,12 +100,13 @@ namespace ZDB {
     PreparedStatement(PreparedStatement_T preparedStatement);
     void setString(int parameterIndex, const char *x);
     void setInt(int parameterIndex, int x);
-    void setLLong(int parameterIndex, long long int x);
+    void setLLong(int parameterIndex, long long x);
     void setDouble(int parameterIndex, double x);
     void setBlob(int parameterIndex, const void *x, int size);
+    void setTimestamp(int parameterIndex, time_t x);
     void execute();
     ResultSet* executeQuery();
-    long long int rowsChanged();
+    long long rowsChanged();
   };
 
 };

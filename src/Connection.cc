@@ -60,12 +60,12 @@ void ZDB::Connection::rollback() {
     Connection_rollback(internal);
   } CATCH_RETHROW_SQL;
 }
-long long int ZDB::Connection::lastRowId() {
+long long ZDB::Connection::lastRowId() {
   TRY {
     RETURN Connection_lastRowId(internal);
   } CATCH_RETHROW_SQL;
 }
-long long int ZDB::Connection::rowsChanged() {
+long long ZDB::Connection::rowsChanged() {
   TRY {
     RETURN Connection_rowsChanged(internal);
   } CATCH_RETHROW_SQL;
