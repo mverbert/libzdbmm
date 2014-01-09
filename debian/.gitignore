@@ -1,0 +1,8 @@
+files
+stamp-*
+tmp/
+libzdbmm-dev/
+libzdbmm11/
+*.debhelper.log
+*.substvars
+*.debhelper

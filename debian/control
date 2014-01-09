@@ -1,0 +1,23 @@
+Source: libzdbmm
+Priority: extra
+Maintainer: Matthieu Verbert <matthieu.verbert@aitb.org>
+Build-Depends: debhelper (>= 8.0.0), libstdc++-dev, libzdb-dev
+Standards-Version: 3.9.3
+Section: libs
+Homepage: http://github.com/mverbert/libzdbmm
+
+Package: libzdbmm-dev
+Section: libdevel
+Architecture: any
+Depends: libzdbmm11 (= ${binary:Version})
+Description: C++ binding library for libzdb
+ libzdbmm is a OO thin layer on top of libzdb. This
+ package contains the development files.
+
+Package: libzdbmm11
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: C++ binding library for libzdb
+ libzdbmm is a OO thin layer on top of libzdb. This
+ package contains the runtime library.
