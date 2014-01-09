@@ -1,4 +1,4 @@
-AC_INIT([zdbmm], [0.3.0], [matthieu.verbert@aitb.org])
+AC_INIT([zdbmm], [1.3.0], [matthieu.verbert@aitb.org])
 AM_INIT_AUTOMAKE
 AC_PROG_CXX
 PKG_CHECK_MODULES([zdb], [zdb >= 3.0])
